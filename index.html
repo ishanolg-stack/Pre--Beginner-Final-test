@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEPALY KEY • Starter Final Exam</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.45;padding:14px}
+  .wrap{max-width:720px;margin:0 auto}
+  .hdr{background:#0f172a;color:#fff;padding:18px;border-radius:14px;border-bottom:5px solid #f59e0b;margin-bottom:14px;text-align:center}
+  .bdg{display:inline-block;background:#f59e0b;color:#0f172a;font-weight:800;font-size:11px;padding:3px 10px;border-radius:20px;margin-bottom:6px}
+  .hdr h1{font-size:20px;margin-bottom:4px}
+  .hdr p{font-size:13px;color:#cbd5e1}
+  .box{background:#fff;padding:15px;border-radius:12px;border:1px solid #cbd5e1;margin-bottom:14px}
+  .box label{display:block;font-weight:700;font-size:14px;margin-bottom:7px}
+  .box input{width:100%;padding:11px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:15px}
+  .card{background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:14px;margin-bottom:11px}
+  .card.ok{border:2px solid #16a34a;background:#f0fdf4}
+  .card.no{border:2px solid #dc2626;background:#fef2f2}
+  .qt{font-weight:700;font-size:15px;margin-bottom:9px}
+  .qn{background:#0f172a;color:#fff;font-size:12px;padding:1px 7px;border-radius:6px;margin-right:6px}
+  .opt{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid #cbd5e1;border-radius:8px;margin-bottom:6px;background:#f8fafc;font-size:14px}
+  .opt input{width:17px;height:17px;accent-color:#2563eb}
+  .exp{margin-top:8px;padding:8px 10px;border-radius:7px;font-size:13px;font-weight:600;display:none}
+  .card.ok .exp{display:block;background:#dcfce7;color:#16a34a}
+  .card.no .exp{display:block;background:#fee2e2;color:#dc2626}
+  .btn{width:100%;padding:15px;background:#2563eb;color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:800;margin-top:6px}
+  .res{display:none;background:#fff;border-radius:14px;padding:18px;margin-top:16px;text-align:center;border:2px solid #0f172a}
+  .sc{font-size:30px;font-weight:900;margin:6px 0}
+  .pill{display:inline-block;padding:6px 15px;border-radius:20px;font-weight:800;font-size:13px}
+  .pass{background:#dcfce7;color:#16a34a}
+  .fail{background:#fee2e2;color:#dc2626}
+  .ftr{text-align:center;font-size:12px;color:#64748b;margin:20px 0 10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="bdg">VEPALY-ONLINE EDUCATION CENTER • VEPALY KEY</div>
+    <h1>Final Grammar Exam: Preparation Beginner</h1>
+    <p>30 Questions • Pass Mark: 70% (21 / 30) • Lessons 1–12</p>
+  </div>
+
+  <div class="box">
+    <label for="stName">Student Full Name (Имя и фамилия ученика):</label>
+    <input type="text" id="stName" placeholder="Enter your name...">
+  </div>
+
+  <div id="quiz"></div>
+
+  <button type="button" class="btn" id="subBtn">Submit &amp; Check Result (Проверить тест)</button>
+
+  <div class="res" id="resBox">
+    <div id="rName" style="font-weight:700;color:#475569"></div>
+    <div class="sc" id="rScore"></div>
+    <div id="rStat" class="pill"></div>
+    <p id="rMsg" style="margin-top:10px;font-size:14px"></p>
+    <button type="button" class="btn" style="background:#0f172a;margin-top:12px" id="rstBtn">Try Again (Пройти заново)</button>
+  </div>
+
+  <div class="ftr">VEPALY-ONLINE EDUCATION CENTER • Program: VEPALY KEY • Starter Level</div>
+</div>
+
+<script>
+var Q = [
+  ["___ am a student.", ["He","I","They"], 1, "С местоимением I используется am."],
+  ["My sister and I = ___", ["they","you","we"], 2, "Моя сестра и я = мы (we)."],
+  ["She ___ a doctor.", ["am","is","are"], 1, "Для he / she / it используется is."],
+  ["___ they from London?", ["Is","Am","Are"], 2, "Для множественного числа (they) ставим Are."],
+  ["I see ___ elephant at the zoo.", ["a","an","two"], 1, "Elephant начинается с гласного звука — ставим an."],
+  ["It is ___ blue umbrella.", ["a","an","are"], 0, "Перед согласным звуком [b] (blue) ставим a."],
+  ["She ___ red apples.", ["like","likes","to like"], 1, "После she добавляем окончание -s (likes)."],
+  ["Tom ___ a black car.", ["have","haves","has"], 2, "Для he / she / it глагол have меняется на has."],
+  ["___ you like green tea?", ["Do","Does","Are"], 0, "Для вопроса с you нужен помощник Do."],
+  ["He ___ like grey.", ["don't","isn't","doesn't"], 2, "Отрицание для he / she / it — doesn't."],
+  ["Red + Yellow = ___", ["Green","Orange","Purple"], 1, "Красный + жёлтый = оранжевый (Orange)."],
+  ["How do you write 15?", ["fifty","fiveteen","fifteen"], 2, "15 пишется fifteen."],
+  ["How do you write 40?", ["fourty","forty","fourteen"], 1, "40 пишется без u — forty."],
+  ["85 in English is ___", ["eighty-five","eighteen-five","fifty-eight"], 0, "85 = eighty-five."],
+  ["I have two ___.", ["key","keys","a key"], 1, "Множественное число: keys."],
+  ["The opposite of BIG is ___.", ["tall","small","fast"], 1, "Антоним big — small."],
+  ["The opposite of HOT is ___.", ["cold","heavy","clean"], 0, "Антоним hot — cold."],
+  ["It is ___.", ["a car red","red car","a red car"], 2, "Прилагательное перед существительным: a red car."],
+  ["___ is your name?", ["Who","What","Where"], 1, "Как тебя зовут? — What is your name?"],
+  ["___ are you from?", ["Where","Which","How old"], 0, "Откуда ты? — Where are you from?"],
+  ["___ pens do you have? — Three.", ["How old","How many","Who"], 1, "Сколько предметов? — How many."],
+  ["___ book here is mine.", ["This","These","Those"], 0, "Один предмет рядом — This."],
+  ["Look at ___ birds in the sky!", ["this","these","those"], 2, "Много предметов далеко — those."],
+  ["We ___ English every day.", ["study","studies","to study"], 0, "После we глагол без to и без -s."],
+  ["___ the door, please!", ["To open","Open","Opens"], 1, "Повелительное наклонение: глагол без to."],
+  ["___ touch it! It is hot!", ["Not","No","Don't"], 2, "Запрет: Don't + глагол."],
+  ["___ go to the park!", ["Let's","Let","We"], 0, "Совместное действие: Let's go!"],
+  ["A fish ___ swim.", ["can","cans","can to"], 0, "Can не меняется и идёт без to."],
+  ["A penguin ___ fly.", ["can","can't","don't can"], 1, "Отрицание — can't."],
+  ["___ you drive a car?", ["Do","Are","Can"], 2, "Вопрос с can: Can на первое место."]
+];
+
+var box = document.getElementById("quiz");
+var html = "";
+for (var i = 0; i < Q.length; i++) {
+  html += '<div class="card" id="c' + i + '"><div class="qt"><span class="qn">' + (i + 1) + '</span>' + Q[i][0] + '</div>';
+  for (var j = 0; j < Q[i][1].length; j++) {
+    html += '<label class="opt"><input type="radio" name="q' + i + '" value="' + j + '"><span>' + Q[i][1][j] + '</span></label>';
+  }
+  html += '<div class="exp" id="e' + i + '"></div></div>';
+}
+box.innerHTML = html;
+
+document.getElementById("subBtn").onclick = function() {
+  var sc = 0;
+  for (var i = 0; i < Q.length; i++) {
+    var sel = document.querySelector('input[name="q' + i + '"]:checked');
+    var c = document.getElementById("c" + i);
+    var e = document.getElementById("e" + i);
+    c.className = "card";
+    if (sel && Number(sel.value) === Q[i][2]) {
+      sc++;
+      c.className = "card ok";
+      e.textContent = "✓ Correct! " + Q[i][3];
+    } else {
+      c.className = "card no";
+      e.textContent = "✗ Answer: " + Q[i][1][Q[i][2]] + ". " + Q[i][3];
+    }
+  }
+  var pct = Math.round((sc / Q.length) * 100);
+  var nm = document.getElementById("stName").value.trim() || "Student";
+  document.getElementById("rName").textContent = "Result for: " + nm;
+  document.getElementById("rScore").textContent = sc + " / " + Q.length + " (" + pct + "%)";
+  var st = document.getElementById("rStat");
+  if (pct >= 70) {
+    st.textContent = "PASSED • PROMOTED TO BEGINNER (A1)";
+    st.className = "pill pass";
+    document.getElementById("rMsg").textContent = "Поздравляем! Экзамен сдан. Сделайте скриншот и отправьте преподавателю.";
+  } else {
+    st.textContent = "RETAKE NEEDED (< 70%)";
+    st.className = "pill fail";
+    document.getElementById("rMsg").textContent = "Повторите правила выше и попробуйте сдать тест ещё раз.";
+  }
+  var rb = document.getElementById("resBox");
+  rb.style.display = "block";
+  rb.scrollIntoView({ behavior: "smooth" });
+};
+
+document.getElementById("rstBtn").onclick = function() {
+  var rs = document.querySelectorAll('input[type="radio"]');
+  for (var i = 0; i < rs.length; i++) rs[i].checked = false;
+  var cs = document.querySelectorAll(".card");
+  for (var j = 0; j < cs.length; j++) cs[j].className = "card";
+  document.getElementById("resBox").style.display = "none";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+</script>
+</body>
+</html>
